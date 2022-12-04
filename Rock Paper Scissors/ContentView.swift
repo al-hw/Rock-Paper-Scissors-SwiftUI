@@ -130,17 +130,17 @@ struct ContentView: View {
             roundsLeft -= 1
         } else if playerChoice == "rock" && moves[appCurrentChoice] == "scissors" {
             showResult.toggle()
-            resultTitle = "YOU WIN!"
+            resultTitle = "YOU WON!"
             wonScore += 1
             roundsLeft -= 1
         } else if playerChoice == "scissors" && moves[appCurrentChoice] == "paper" {
             showResult.toggle()
-            resultTitle = "YOU WIN!"
+            resultTitle = "YOU WON!"
             wonScore += 1
             roundsLeft -= 1
         } else if playerChoice == "paper" && moves[appCurrentChoice] == "rock" {
             showResult.toggle()
-            resultTitle = "YOU WIN!"
+            resultTitle = "YOU WON!"
             wonScore += 1
             roundsLeft -= 1
         } else {
