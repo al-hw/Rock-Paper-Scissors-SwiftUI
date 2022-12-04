@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var appCurrentChoice = Int.random(in: 0...2)
     @State private var restart = false
     @State private var showResult = false
+    @State private var playerMove = ""
+    @State private var playerMoveHighlightColor: Color = .yellow
     @State private var resultTitle = ""
     @State private var wonScore = 0
     @State private var lostScore = 0
@@ -76,13 +78,15 @@ struct ContentView: View {
                         Button {
                             if roundsLeft > 1 {
                                 moveChosen(moves[number])
+                                playerMove = moves[number]
                             } else {
                                 restart = true
                             }
                         } label: {
-                            Text(Image(moves[number]))
+                            Image(moves[number])
+                                .padding(10)
+                                .background(moves[number] == playerMove ? playerMoveHighlightColor : .clear)
                         }
-                        .padding(10)
                         .background(Color("LightText"))
                         .cornerRadius(10)
                         .shadow(color: Color("LightText"), radius: 20, x: 10, y: 10)
@@ -103,6 +107,7 @@ struct ContentView: View {
         .alert(resultTitle, isPresented: $showResult) {
             Button("Continue") {
                 appCurrentChoice = Int.random(in: 0...2)
+                playerMove = ""
             }
         } message: {
             Text("You won \(wonScore) rounds and lost \(lostScore) rounds. \n\(roundsLeft) rounds left")
@@ -125,30 +130,39 @@ struct ContentView: View {
     
     func moveChosen(_ playerChoice: String) {
         if playerChoice == moves[appCurrentChoice]  {
-            showResult.toggle()
-            resultTitle = "DRAW!"
-            roundsLeft -= 1
+            draw()
         } else if playerChoice == "rock" && moves[appCurrentChoice] == "scissors" {
-            showResult.toggle()
-            resultTitle = "YOU WON!"
-            wonScore += 1
-            roundsLeft -= 1
+            win()
         } else if playerChoice == "scissors" && moves[appCurrentChoice] == "paper" {
-            showResult.toggle()
-            resultTitle = "YOU WON!"
-            wonScore += 1
-            roundsLeft -= 1
+            win()
         } else if playerChoice == "paper" && moves[appCurrentChoice] == "rock" {
-            showResult.toggle()
-            resultTitle = "YOU WON!"
-            wonScore += 1
-            roundsLeft -= 1
+            win()
         } else {
-            showResult.toggle()
-            resultTitle = "YOU LOST!"
-            lostScore += 1
-            roundsLeft -= 1
+            loose()
         }
+    }
+    
+    func win() {
+        showResult.toggle()
+        resultTitle = "YOU WON!"
+        wonScore += 1
+        roundsLeft -= 1
+        playerMoveHighlightColor = .green
+    }
+    
+    func loose() {
+        showResult.toggle()
+        resultTitle = "YOU LOST!"
+        lostScore += 1
+        roundsLeft -= 1
+        playerMoveHighlightColor = .red
+    }
+    
+    func draw() {
+        showResult.toggle()
+        resultTitle = "DRAW!"
+        roundsLeft -= 1
+        playerMoveHighlightColor = .yellow
     }
     
     func restartGame() {
