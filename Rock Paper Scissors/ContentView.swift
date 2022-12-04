@@ -22,7 +22,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color("Background1"), Color("Background2")]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [showResult ? playerMoveHighlightColor : Color("Background1"), Color("Background2")]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
             VStack {
@@ -44,7 +44,7 @@ struct ContentView: View {
                     }
                 }
                 .padding(40)
-                .background(Color("Background1"))
+                .background(showResult ? playerMoveHighlightColor : Color("Background1"))
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .shadow(color: Color("Background2"), radius: 20)
                 
@@ -119,16 +119,18 @@ struct ContentView: View {
             }
         } message: {
             if wonScore > lostScore {
-                Text("YOU WON! \nYou won \(wonScore) rounds and lost \(lostScore) rounds.")
+                Text("YOU WON!\n🥳🥳🥳\nYou won \(wonScore) rounds and lost \(lostScore) rounds.")
             } else if wonScore < lostScore {
-                Text("YOU LOST! \nYou won \(wonScore) rounds and lost \(lostScore) rounds.")
+                Text("YOU LOST!\n🥲🥲🥲\nYou won \(wonScore) rounds and lost \(lostScore) rounds.")
             } else {
-                Text("DRAW! \nYou won \(wonScore) rounds and lost \(lostScore) rounds.")
+                Text("DRAW!\n😛😛😛\nYou won \(wonScore) rounds and lost \(lostScore) rounds.")
             }
         }
     }
     
     func moveChosen(_ playerChoice: String) {
+        let impactMed = UIImpactFeedbackGenerator(style: .soft)
+        
         if playerChoice == moves[appCurrentChoice]  {
             draw()
         } else if playerChoice == "rock" && moves[appCurrentChoice] == "scissors" {
@@ -139,12 +141,13 @@ struct ContentView: View {
             win()
         } else {
             loose()
+            impactMed.impactOccurred()
         }
     }
     
     func win() {
         showResult.toggle()
-        resultTitle = "YOU WON!"
+        resultTitle = "YOU WON!\n🥳🥳🥳"
         wonScore += 1
         roundsLeft -= 1
         playerMoveHighlightColor = .green
@@ -152,7 +155,7 @@ struct ContentView: View {
     
     func loose() {
         showResult.toggle()
-        resultTitle = "YOU LOST!"
+        resultTitle = "YOU LOST!\n🥲🥲🥲"
         lostScore += 1
         roundsLeft -= 1
         playerMoveHighlightColor = .red
@@ -160,7 +163,7 @@ struct ContentView: View {
     
     func draw() {
         showResult.toggle()
-        resultTitle = "DRAW!"
+        resultTitle = "DRAW!\n😛😛😛"
         roundsLeft -= 1
         playerMoveHighlightColor = .yellow
     }
