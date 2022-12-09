@@ -147,7 +147,7 @@ struct ContentView: View {
     
     func win() {
         showResult.toggle()
-        resultTitle = "YOU WON!\n🥳🥳🥳"
+        resultTitle = String(localized: "YOU WON!\n🥳🥳🥳")
         wonScore += 1
         roundsLeft -= 1
         playerMoveHighlightColor = .green
@@ -155,7 +155,7 @@ struct ContentView: View {
     
     func loose() {
         showResult.toggle()
-        resultTitle = "YOU LOST!\n🥲🥲🥲"
+        resultTitle = String(localized: "YOU LOST!\n🥲🥲🥲")
         lostScore += 1
         roundsLeft -= 1
         playerMoveHighlightColor = .red
@@ -163,7 +163,7 @@ struct ContentView: View {
     
     func draw() {
         showResult.toggle()
-        resultTitle = "DRAW!\n😛😛😛"
+        resultTitle = String(localized: "DRAW!\n😛😛😛")
         roundsLeft -= 1
         playerMoveHighlightColor = .yellow
     }
@@ -179,5 +179,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environment(\.locale, .init(identifier: "ru"))
     }
 }

@@ -1,0 +1,42 @@
+/* No comment provided by engineer. */
+"%lld ROUNDS LEFT" = "%lld РАУНДОВ ОСТАЛОСЬ";
+
+/* No comment provided by engineer. */
+"App Choice" = "выбор компьютера";
+
+/* No comment provided by engineer. */
+"Continue" = "Продолжить";
+
+/* No comment provided by engineer. */
+"DRAW!\n😛😛😛\nYou won %lld rounds and lost %lld rounds." = "НИЧЬЯ!\n😛😛😛\nВы победили в %lld и проиграли в %lld раундах.";
+
+/* No comment provided by engineer. */
+"GAME OVER!" = "ИГРА ОКОНЧЕНА!";
+
+/* No comment provided by engineer. */
+"LOST" = "ПОБЕД";
+
+/* No comment provided by engineer. */
+"Try again" = "Попробовать снова";
+
+/* No comment provided by engineer. */
+"WON" = "ПОРАЖЕНИЙ";
+
+/* No comment provided by engineer. */
+"YOU LOST!\n🥲🥲🥲\nYou won %lld rounds and lost %lld rounds." = "ПОРАЖЕНИЕ!\n🥲🥲🥲\nВы победили в %lld и проиграли в %lld раундах.";
+
+/* No comment provided by engineer. */
+"You won %lld rounds and lost %lld rounds. \n%lld rounds left" = "Вы победили в %lld и проиграли в %lld раундах.\n%lld раундов осталось.";
+
+/* No comment provided by engineer. */
+"YOU WON!\n🥳🥳🥳\nYou won %lld rounds and lost %lld rounds." = "ПОБЕДА!\n🥳🥳🥳\nВы победили в %lld и проиграли в %lld раундах.";
+
+/* No comment provided by engineer. */
+"Your Choice" = "ваш выбор";
+
+"YOU WON!\n🥳🥳🥳" = "ПОБЕДА!\n🥳🥳🥳";
+
+"YOU LOST!\n🥲🥲🥲" = "ПОРАЖЕНИЕ!\n🥲🥲🥲";
+
+"DRAW!\n😛😛😛" = "НИЧЬЯ!\n😛😛😛";
+
