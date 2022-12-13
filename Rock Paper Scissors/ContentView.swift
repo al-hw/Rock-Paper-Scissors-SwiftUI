@@ -20,6 +20,9 @@ struct ContentView: View {
     @State private var lostScore = 0
     @State private var roundsLeft = 10
     
+    @State private var choiceMadeAnimationAmount = 0.0
+    @State private var notChosenButtonsOpacity = 1.0
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [showResult ? playerMoveHighlightColor : Color("Background1"), Color("Background2")]), startPoint: .top, endPoint: .bottom)
@@ -37,11 +40,14 @@ struct ContentView: View {
                         Text("❔")
                             .font(.system(size: 150))
                             .foregroundColor(showResult ? .clear : .primary)
+                            
                         Image(moves[appCurrentChoice])
                             .resizable()
                             .frame(width: 150, height: 150)
                             .opacity(showResult ? 1 : 0)
                     }
+                    .rotation3DEffect(.degrees(choiceMadeAnimationAmount), axis: (x: 0, y: 1, z: 0))
+                    
                 }
                 .padding(40)
                 .background(showResult ? playerMoveHighlightColor : Color("Background1"))
@@ -79,20 +85,30 @@ struct ContentView: View {
                             if roundsLeft > 1 {
                                 moveChosen(moves[number])
                                 playerMove = moves[number]
+                                withAnimation(.interpolatingSpring(stiffness: 30, damping: 5)) {
+                                    choiceMadeAnimationAmount += 360
+                                }
+                                
+
                             } else {
+                                withAnimation(.interpolatingSpring(stiffness: 30, damping: 5)) {
+                                    choiceMadeAnimationAmount += 360
+                                }
                                 restart = true
                             }
                         } label: {
                             Image(moves[number])
+                                .rotation3DEffect(.degrees(choiceMadeAnimationAmount), axis: (x: 0, y: moves[number] == playerMove ? 1 : 0, z: 0))
                                 .padding(10)
                                 .background(moves[number] == playerMove ? playerMoveHighlightColor : .clear)
+                            
                         }
                         .background(Color("LightText"))
                         .cornerRadius(10)
                         .shadow(color: Color("LightText"), radius: 20, x: 10, y: 10)
+                        .opacity(moves[number] == playerMove ? 1 : notChosenButtonsOpacity)
                     }
                 }
-                
                 
                 Spacer()
                 
@@ -108,6 +124,7 @@ struct ContentView: View {
             Button("Continue") {
                 appCurrentChoice = Int.random(in: 0...2)
                 playerMove = ""
+                notChosenButtonsOpacity = 1
             }
         } message: {
             Text("You won \(wonScore) rounds and lost \(lostScore) rounds. \n\(roundsLeft) rounds left")
@@ -116,6 +133,7 @@ struct ContentView: View {
         .alert("GAME OVER!", isPresented: $restart) {
             Button("Try again") {
                 restartGame()
+                notChosenButtonsOpacity = 1
             }
         } message: {
             if wonScore > lostScore {
@@ -130,6 +148,7 @@ struct ContentView: View {
     
     func moveChosen(_ playerChoice: String) {
         let impactMed = UIImpactFeedbackGenerator(style: .soft)
+        notChosenButtonsOpacity = 0.25
         
         if playerChoice == moves[appCurrentChoice]  {
             draw()
